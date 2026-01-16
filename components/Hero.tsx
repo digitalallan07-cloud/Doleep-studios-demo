@@ -1,200 +1,120 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const Hero = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: heroRef,
+    target: sectionRef,
     offset: ["start start", "end start"],
   });
 
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 1.2]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
   return (
-    <motion.section
-      ref={heroRef}
-      style={{ opacity }}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden"
     >
       {/* Video Background */}
-      <motion.div
-        style={{ scale }}
-        className="absolute inset-0 w-full h-full"
-      >
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/80 via-white/95 to-white/90 z-10"></div>
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-30"
         >
           <source
-            src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+            src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4"
             type="video/mp4"
           />
         </video>
-        {/* Electric Blue Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-electric-blue/20 via-black/50 to-electric-deep/20"></div>
-
-        {/* Animated Grid */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="h-full w-full" style={{
-            backgroundImage: `linear-gradient(#00d4ff 1px, transparent 1px), linear-gradient(90deg, #00d4ff 1px, transparent 1px)`,
-            backgroundSize: '100px 100px',
-          }}></div>
-        </div>
-      </motion.div>
-
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 20, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-          }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-electric-blue/10 rounded-full blur-3xl"
-        ></motion.div>
-        <motion.div
-          animate={{
-            y: [0, 30, 0],
-            x: [0, -20, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-          }}
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-electric-glow/10 rounded-full blur-3xl"
-        ></motion.div>
-        <motion.div
-          animate={{
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-electric-blue/20 rounded-full"
-        ></motion.div>
       </div>
 
+      {/* Content */}
       <motion.div
-        style={{ y: textY }}
-        className="container mx-auto px-6 lg:px-12 relative z-10"
+        style={{ y, opacity }}
+        className="container mx-auto px-6 lg:px-12 relative z-20 py-32"
       >
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Subtitle */}
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="mb-8"
           >
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-electric-blue/10 border border-electric-blue/30 rounded-full text-electric-light text-sm font-medium backdrop-blur-sm glow-box">
-              <span className="w-2 h-2 bg-electric-glow rounded-full animate-pulse"></span>
-              Award-Winning Creative Agency Since 2007
+            <span className="inline-flex items-center gap-2 px-6 py-3 bg-primary-50 rounded-full text-primary font-semibold text-sm">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              Award-Winning Video Production Since 2007
             </span>
           </motion.div>
 
-          {/* Main Heading with Anti-Gravity Effect */}
+          {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-display font-bold mb-8 leading-none tracking-tight"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-dark mb-8 leading-tight"
           >
-            <motion.span
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 0,
-              }}
-              className="inline-block text-white"
-            >
-              Create
-            </motion.span>
+            Crafting Visual
             <br />
-            <motion.span
-              animate={{
-                y: [0, -15, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 0.2,
-              }}
-              className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-electric-blue via-electric-glow to-white glow-text"
-            >
-              The Future
-            </motion.span>
-            <br />
-            <motion.span
-              animate={{
-                y: [0, -12, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: 0.4,
-              }}
-              className="inline-block text-white"
-            >
-              Today
-            </motion.span>
+            <span className="text-primary">Stories That Matter</span>
           </motion.h1>
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            Dubai&apos;s premier video production & digital marketing agency.
-            <br />
-            <span className="text-electric-light">Transforming visions into reality.</span>
+            Dubai&apos;s premier video production and digital marketing agency.
+            We transform your vision into compelling visual narratives.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
           >
             <motion.a
               href="#portfolio"
-              className="group relative px-10 py-5 bg-electric-blue text-black rounded-full font-bold text-lg overflow-hidden glow-box"
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
+              className="group px-8 py-4 bg-primary text-white rounded-full font-semibold text-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10">Explore Our Work</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-electric-glow to-electric-deep"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
+              <span className="flex items-center gap-2">
+                View Our Work
+                <svg
+                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
             </motion.a>
 
             <motion.a
               href="#contact"
-              className="px-10 py-5 border-2 border-electric-blue text-electric-light rounded-full font-bold text-lg hover:bg-electric-blue hover:text-black transition-all duration-300 backdrop-blur-sm"
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-white border-2 border-primary text-primary rounded-full font-semibold text-lg hover:bg-primary hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Start Your Project
+              Start a Project
             </motion.a>
           </motion.div>
 
@@ -202,25 +122,24 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8"
+            transition={{ duration: 0.8, delay: 1 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
           >
             {[
-              { number: "19+", label: "Years of Excellence" },
-              { number: "500+", label: "Projects Delivered" },
-              { number: "5", label: "International Awards" },
-              { number: "100%", label: "Client Satisfaction" },
+              { number: "19+", label: "Years" },
+              { number: "500+", label: "Projects" },
+              { number: "5", label: "Awards" },
+              { number: "100%", label: "Satisfaction" },
             ].map((stat, index) => (
               <motion.div
                 key={index}
-                className="group text-center p-6 rounded-2xl backdrop-blur-sm border border-electric-blue/20 hover:border-electric-blue/50 transition-all duration-300"
-                whileHover={{ y: -10, scale: 1.05 }}
-                transition={{ duration: 0.3 }}
+                className="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+                whileHover={{ y: -5 }}
               >
-                <div className="text-5xl md:text-6xl font-display font-bold text-electric-blue mb-2 glow-text group-hover:text-electric-glow transition-colors">
+                <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-400 text-sm md:text-base font-light">
+                <div className="text-gray-600 text-sm md:text-base font-medium">
                   {stat.label}
                 </div>
               </motion.div>
@@ -234,26 +153,26 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 15, 0] }}
+          animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-3"
+          className="flex flex-col items-center gap-2"
         >
-          <span className="text-electric-light text-sm font-medium tracking-wider">SCROLL</span>
-          <motion.div
-            className="w-6 h-10 border-2 border-electric-blue rounded-full flex justify-center overflow-hidden glow-box"
-          >
+          <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">
+            Scroll
+          </span>
+          <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center p-2">
             <motion.div
-              animate={{ y: [0, 16, 0] }}
+              animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-1 h-3 bg-electric-glow rounded-full mt-2"
+              className="w-1 h-2 bg-primary rounded-full"
             />
-          </motion.div>
+          </div>
         </motion.div>
       </motion.div>
-    </motion.section>
+    </section>
   );
 };
 
