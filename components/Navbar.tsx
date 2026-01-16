@@ -9,7 +9,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -17,9 +17,8 @@ const Navbar = () => {
   }, []);
 
   const menuItems = [
-    { name: "Services", href: "#services" },
     { name: "Portfolio", href: "#portfolio" },
-    { name: "Awards", href: "#awards" },
+    { name: "Services", href: "#services" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -27,10 +26,10 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      transition={{ duration: 0.8 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-lg shadow-md py-4"
+          ? "bg-dark/95 backdrop-blur-xl border-b border-primary/10 py-4"
           : "bg-transparent py-6"
       }`}
     >
@@ -39,7 +38,7 @@ const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#"
-            className="text-2xl lg:text-3xl font-display font-bold text-dark"
+            className="text-2xl lg:text-3xl font-display font-bold text-white"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -53,7 +52,7 @@ const Navbar = () => {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="relative text-dark hover:text-primary transition-colors duration-300 text-base font-medium group"
+                className="relative text-white/80 hover:text-white transition-colors duration-300 text-base font-medium group"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -64,17 +63,17 @@ const Navbar = () => {
             ))}
             <motion.a
               href="#contact"
-              className="px-6 py-2.5 bg-primary text-white rounded-full font-semibold text-base hover:bg-primary-dark transition-all duration-300 shadow-md hover:shadow-lg"
-              whileHover={{ scale: 1.05 }}
+              className="px-6 py-2.5 bg-primary text-white rounded-full font-semibold text-base hover:bg-primary-light transition-all duration-300 shadow-lg shadow-primary/20"
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get Started
+              Let's Talk
             </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden text-dark focus:outline-none"
+            className="md:hidden text-white focus:outline-none"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             whileTap={{ scale: 0.9 }}
           >
@@ -109,13 +108,13 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-6 pb-6 space-y-4 border-t border-gray-200 pt-6"
+            className="md:hidden mt-6 pb-6 space-y-4 border-t border-primary/20 pt-6"
           >
             {menuItems.map((item, index) => (
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="block py-3 px-4 text-dark hover:text-primary hover:bg-primary-50 rounded-lg transition-all duration-300 font-medium"
+                className="block py-3 px-4 text-white/80 hover:text-white hover:bg-primary/10 rounded-lg transition-all duration-300 font-medium"
                 onClick={() => setMobileMenuOpen(false)}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -130,9 +129,9 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.3 }}
             >
-              Get Started
+              Let's Talk
             </motion.a>
           </motion.div>
         )}

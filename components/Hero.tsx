@@ -1,32 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden"
-    >
+    <section className="relative min-h-screen flex items-center justify-center bg-dark overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/80 via-white/95 to-white/90 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark z-10"></div>
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover"
         >
           <source
             src="https://videos.pexels.com/video-files/3163534/3163534-uhd_2560_1440_30fps.mp4"
@@ -36,21 +23,22 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <motion.div
-        style={{ y, opacity }}
-        className="container mx-auto px-6 lg:px-12 relative z-20 py-32"
-      >
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="container mx-auto px-6 lg:px-12 relative z-20 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="max-w-5xl mx-auto"
+        >
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="mb-8"
           >
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-primary-50 rounded-full text-primary font-semibold text-sm">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-              Award-Winning Video Production Since 2007
+            <span className="inline-block px-6 py-3 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-semibold text-sm">
+              Dubai&apos;s Premier Video Production Studio
             </span>
           </motion.div>
 
@@ -58,40 +46,39 @@ const Hero = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-dark mb-8 leading-tight"
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-8 leading-tight"
           >
-            Crafting Visual
+            We Create
             <br />
-            <span className="text-primary">Stories That Matter</span>
+            <span className="text-primary">Visual Masterpieces</span>
           </motion.h1>
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto"
           >
-            Dubai&apos;s premier video production and digital marketing agency.
-            We transform your vision into compelling visual narratives.
+            Award-winning video production and digital storytelling since 2007
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+            transition={{ duration: 1, delay: 1 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.a
               href="#portfolio"
-              className="group px-8 py-4 bg-primary text-white rounded-full font-semibold text-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="group px-10 py-5 bg-primary text-white rounded-full font-bold text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="flex items-center gap-2">
-                View Our Work
+              <span className="flex items-center gap-3">
+                View Portfolio
                 <svg
                   className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                   fill="none"
@@ -102,7 +89,7 @@ const Hero = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
                   />
                 </svg>
               </span>
@@ -110,62 +97,34 @@ const Hero = () => {
 
             <motion.a
               href="#contact"
-              className="px-8 py-4 bg-white border-2 border-primary text-primary rounded-full font-semibold text-lg hover:bg-primary hover:text-white transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-10 py-5 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-full font-bold text-lg hover:bg-white/20 transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start a Project
+              Get in Touch
             </motion.a>
           </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
-          >
-            {[
-              { number: "19+", label: "Years" },
-              { number: "500+", label: "Projects" },
-              { number: "5", label: "Awards" },
-              { number: "100%", label: "Satisfaction" },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="text-center p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-                whileHover={{ y: -5 }}
-              >
-                <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-600 text-sm md:text-base font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 12, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-3"
         >
-          <span className="text-gray-500 text-xs font-medium uppercase tracking-wider">
-            Scroll
+          <span className="text-gray-400 text-xs font-medium uppercase tracking-wider">
+            Scroll to Explore
           </span>
           <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center p-2">
             <motion.div
-              animate={{ y: [0, 12, 0] }}
+              animate={{ y: [0, 14, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
               className="w-1 h-2 bg-primary rounded-full"
             />
